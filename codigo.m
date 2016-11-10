@@ -1,18 +1,15 @@
+archivoDeAudio = 'Audio-TPMatSup.wav';
+[datos,frecuencia] = audioread(archivoDeAudio);
 
-%se lee el archivo de audio y retorna sample(y) y frecuencia (fs)
-[Audio,fs]=wavread('Audio-TPMatSup.wav');
+%Audio original
+subplot(2,1,1);
+plot(datos);
 
-%convierto de stereo a mono
-xn = (Audio(:,1)+Audio(:,2))/2;
+numeradorFuncionFiltro = [1 1.1]; % Numerador de la función filtro H(z) -> z + 1.1 
+denominadorFuncionFiltro = [1 0 -0.1]; % Denominador de la función filtro H(z) -> ze2 - 0.1
+ 
+audioFiltrado = filter(numeradorFuncionFiltro,denominadorFuncionFiltro,datos);
 
-%aca se calcula la duracion
-t=linspace(0, length(Audio)/fs, length(Audio));
-
-%se grafica
-%plot(t, xn);
-
-YZ = filter ([1 1.1],[1 0 -0.1] , xn)
-
-yn = iztrans(YZ)
-
-plot(yn);
+%Audio filtrado
+subplot(2,1,2);
+plot(audioFiltrado);
