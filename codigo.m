@@ -21,3 +21,7 @@ plot(audioFiltrado);
 title('Audio filtrado en funcion del tiempo (y(t))');
 xlabel('y');
 ylabel('t');
+
+%Probamos el audio filtrado
+
+soundsc(audioFiltrado);
